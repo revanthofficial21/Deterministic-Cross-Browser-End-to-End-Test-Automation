@@ -1,6 +1,6 @@
 # Flakiness campaign summary
 
-Generated 2026-11-26T02:20:41.601Z
+Generated 2026-11-26T03:33:52.303Z
 
 Metric definitions: F = |{t : 0 < f(t) < n}| / |T|; run-level = proportion of suite executions with at least one failure. Intervals are Wilson 95%.
 
@@ -8,7 +8,7 @@ Metric definitions: F = |{t : 0 < f(t) < n}| / |T|; run-level = proportion of su
 |---|---|---|---|---|---|---|---|---|
 | A | 8 | 8 | 4 | 50.0% [21.5%, 78.5%] | 100.0% [67.6%, 100.0%] | 42.2% | n/a | 17.8 s |
 | B | 6 | 8 | 1 | 12.5% [2.2%, 47.1%] | 16.7% [3.0%, 56.4%] | 2.1% | n/a | 62.0 s |
-| C | 6 | 8 | 0 | 0.0% [0.0%, 32.4%] | 0.0% [0.0%, 39.0%] | 0.0% | n/a | 59.5 s |
+| C | 14 | 8 | 0 | 0.0% [0.0%, 32.4%] | 0.0% [0.0%, 21.5%] | 0.0% | n/a | 58.4 s |
 
 ## Per-test detail
 
@@ -42,17 +42,17 @@ Metric definitions: F = |{t : 0 < f(t) < n}| / |T|; run-level = proportion of su
 
 | Test | Executions | Failures | Failure rate | Flaky | First sample error |
 |---|---|---|---|---|---|
-| T3 displayed total equals the sum of amounts | 6 | 0 | 0.0% | no |  |
-| T2 order list paints with the seeded rows | 6 | 0 | 0.0% | no |  |
-| T1 sign-in reaches the dashboard | 6 | 0 | 0.0% | no |  |
-| T4 adding an order updates the list and the total | 6 | 0 | 0.0% | no |  |
-| T6 open-only filter shows only open orders | 6 | 0 | 0.0% | no |  |
-| T5 settings persist across a reload | 6 | 0 | 0.0% | no |  |
-| T7 order list still shows the seeded rows after an unrelated action | 6 | 0 | 0.0% | no |  |
-| T8 creating several orders keeps the total consistent | 6 | 0 | 0.0% | no |  |
+| T3 displayed total equals the sum of amounts | 14 | 0 | 0.0% | no |  |
+| T2 order list paints with the seeded rows | 14 | 0 | 0.0% | no |  |
+| T1 sign-in reaches the dashboard | 14 | 0 | 0.0% | no |  |
+| T4 adding an order updates the list and the total | 14 | 0 | 0.0% | no |  |
+| T6 open-only filter shows only open orders | 14 | 0 | 0.0% | no |  |
+| T5 settings persist across a reload | 14 | 0 | 0.0% | no |  |
+| T7 order list still shows the seeded rows after an unrelated action | 14 | 0 | 0.0% | no |  |
+| T8 creating several orders keeps the total consistent | 14 | 0 | 0.0% | no |  |
 
 ## Contrasts
 
 - A -> B (wait policy: fixed sleeps to auto-waiting): F 50.0% -> 12.5% (75.0% relative reduction); mean suite duration +249.1%
-- B -> C (contribution: per-worker state isolation): F 12.5% -> 0.0% (100.0% relative reduction); mean suite duration -4.0%
-- A -> C (complete system): F 50.0% -> 0.0% (100.0% relative reduction); mean suite duration +235.0%
+- B -> C (contribution: per-worker state isolation): F 12.5% -> 0.0% (100.0% relative reduction); mean suite duration -5.8%
+- A -> C (complete system): F 50.0% -> 0.0% (100.0% relative reduction); mean suite duration +228.7%

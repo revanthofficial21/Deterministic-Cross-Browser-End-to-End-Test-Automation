@@ -15,11 +15,11 @@ B,"T6 open-only filter shows only open orders",6,0,0,false
 B,"T7 order list still shows the seeded rows after an unrelated action",6,0,0,false
 B,"T5 settings persist across a reload",6,1,0.1667,true
 B,"T8 creating several orders keeps the total consistent",6,0,0,false
-C,"T3 displayed total equals the sum of amounts",6,0,0,false
-C,"T2 order list paints with the seeded rows",6,0,0,false
-C,"T1 sign-in reaches the dashboard",6,0,0,false
-C,"T4 adding an order updates the list and the total",6,0,0,false
-C,"T6 open-only filter shows only open orders",6,0,0,false
-C,"T5 settings persist across a reload",6,0,0,false
-C,"T7 order list still shows the seeded rows after an unrelated action",6,0,0,false
-C,"T8 creating several orders keeps the total consistent",6,0,0,false
+C,"T3 displayed total equals the sum of amounts",14,0,0,false
+C,"T2 order list paints with the seeded rows",14,0,0,false
+C,"T1 sign-in reaches the dashboard",14,0,0,false
+C,"T4 adding an order updates the list and the total",14,0,0,false
+C,"T6 open-only filter shows only open orders",14,0,0,false
+C,"T5 settings persist across a reload",14,0,0,false
+C,"T7 order list still shows the seeded rows after an unrelated action",14,0,0,false
+C,"T8 creating several orders keeps the total consistent",14,0,0,false

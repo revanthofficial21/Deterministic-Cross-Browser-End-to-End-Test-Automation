@@ -18,7 +18,7 @@ searching the repository.
 
 | KPI | Measure | Evidence | Value |
 |---|---|---|---|
-| KPI-1 | Flakiness rate across repeated runs | `results/summary.md` | 50.0% → 12.5% → 0.0% |
+| KPI-1 | Flakiness rate across repeated runs | `results/summary.md` | 50.0% → 12.5% → 0.0%; C over 14 repetitions, 112 test executions, no failure |
 | KPI-2 | Cross-browser consistency pass rate | needs three engines; `results/summary.json` records the field as `null` | open |
 | KPI-3 | Diagnosis without re-run (0–100) | `results/DIAGNOSIS-RUBRIC.md`, `scripts/diagnose.mjs` | 76 pre-fix, 100 on bundles produced after the fix; needs two human raters |
 | KPI-4 | Recovery rate under fault injection | `results/RECOVERY.md` | 100% (9/9 injections, three fault types) |

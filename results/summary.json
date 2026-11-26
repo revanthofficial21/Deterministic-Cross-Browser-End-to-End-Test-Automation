@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T02:20:41.601Z",
+  "generatedAt": "2026-11-26T03:33:52.303Z",
   "conditions": {
     "A": {
       "repetitions": 8,
@@ -198,9 +198,9 @@
       ]
     },
     "C": {
-      "repetitions": 6,
+      "repetitions": 14,
       "tests": 8,
-      "executions": 48,
+      "executions": 112,
       "executionFailureRate": 0,
       "flakinessRate": 0,
       "flakinessCI": [
@@ -212,18 +212,18 @@
       "runLevelRate": 0,
       "runLevelCI": [
         0,
-        0.3903430336530645
+        0.21531701192718142
       ],
       "runsWithFailure": 0,
       "crossBrowserConsistency": null,
       "browsers": [
         "chromium"
       ],
-      "meanSuiteDurationMs": 59545,
+      "meanSuiteDurationMs": 58418,
       "perTest": [
         {
           "test": "T3 displayed total equals the sum of amounts",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -232,7 +232,7 @@
         },
         {
           "test": "T2 order list paints with the seeded rows",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -241,7 +241,7 @@
         },
         {
           "test": "T1 sign-in reaches the dashboard",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -250,7 +250,7 @@
         },
         {
           "test": "T4 adding an order updates the list and the total",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -259,7 +259,7 @@
         },
         {
           "test": "T6 open-only filter shows only open orders",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -268,7 +268,7 @@
         },
         {
           "test": "T5 settings persist across a reload",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -277,7 +277,7 @@
         },
         {
           "test": "T7 order list still shows the seeded rows after an unrelated action",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
@@ -286,7 +286,7 @@
         },
         {
           "test": "T8 creating several orders keeps the total consistent",
-          "n": 6,
+          "n": 14,
           "fails": 0,
           "failureRate": 0,
           "flaky": false,
