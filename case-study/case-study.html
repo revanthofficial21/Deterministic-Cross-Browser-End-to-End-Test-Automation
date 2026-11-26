@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Case study — Deterministic Cross-Browser E2E Test Automation</title>
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #16202b; --muted: #5c6b7a; --rule: #d9e0e8;
+    --navy: #1f3b57; --accent: #b4532a; --good: #2f7a4a; --band: #eff3f8;
+  }
+  body {
+    width: 210mm; height: 296mm;
+    font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+    color: var(--ink); background: #fff; display: flex; flex-direction: column;
+  }
+  header { background: var(--navy); color: #fff; padding: 7mm 11mm 6mm 11mm; }
+  .kicker { font-size: 8pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #9db9d4; }
+  header h1 { font-size: 17.5pt; line-height: 1.15; margin-top: 2mm; font-weight: 700; }
+  header p { font-size: 8.4pt; color: #cfdff0; margin-top: 2.5mm; line-height: 1.35; }
+  .meta { display: flex; gap: 6mm; margin-top: 4mm; font-size: 7.8pt; color: #a9c2d8; }
+  .body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 5.5mm; padding: 3.5mm 10mm 1mm 10mm; }
+  section { margin-bottom: 3.4mm; }
+  h2 {
+    font-size: 8.8pt; text-transform: uppercase; letter-spacing: 0.55pt; color: var(--navy);
+    border-bottom: 1.3pt solid var(--navy); padding-bottom: 1.3mm; margin-bottom: 2.4mm;
+  }
+  p, li { font-size: 7.7pt; line-height: 1.36; }
+  p + p { margin-top: 1.5mm; }
+  ul { list-style: none; }
+  li { padding-left: 3.6mm; position: relative; margin-bottom: 1.0mm; }
+  li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+  strong { font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1.6mm; }
+  th, td { font-size: 7.1pt; text-align: left; padding: 1.4mm 1.4mm; border-bottom: 0.6pt solid var(--rule); }
+  th { background: var(--band); color: var(--navy); font-weight: 700; font-size: 7.4pt; }
+  td.num, th.num { text-align: right; }
+  .big { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4mm; margin: 2mm 0 3mm 0; }
+  .big div { background: var(--band); border-left: 2.6pt solid var(--navy); padding: 2.2mm; }
+  .big .n { font-size: 13pt; font-weight: 700; color: var(--navy); line-height: 1; }
+  .big .l { font-size: 6.6pt; color: var(--muted); margin-top: 1.2mm; line-height: 1.25; }
+  figure { margin: 1.2mm 0 1.6mm 0; }
+  figure img { width: 100%; max-height: 38mm; object-fit: contain; border: 0.6pt solid var(--rule); display: block; }
+  figcaption { font-size: 7.1pt; color: var(--muted); margin-top: 1.2mm; line-height: 1.3; }
+  .box { background: #fbf6f1; border-left: 2.6pt solid var(--accent); padding: 2mm 2.6mm; font-size: 7.4pt; line-height: 1.4; margin-top: 2.4mm; }
+  .pass { color: var(--good); font-weight: 700; }
+  .open { color: var(--accent); font-weight: 700; }
+  footer { border-top: 1pt solid var(--rule); padding: 2mm 11mm 2.6mm 11mm; font-size: 7.6pt; color: var(--muted); display: flex; justify-content: space-between; }
+  code { font-family: "DejaVu Sans Mono", monospace; font-size: 7.4pt; color: var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Portfolio case study</div>
+  <h1>Making browser tests trustworthy again — by measuring the flakiness instead of arguing about it</h1>
+  <p>A two-semester capstone that turned "our end-to-end tests are flaky" into a number, then moved
+  the number: 50.0% of test cases flaky before, 0.0% after.</p>
+  <div class="meta">
+    <span>Mr. RK · solo build, supervisor-reviewed</span>
+    <span>Node · Playwright · Selenium · AWS</span>
+    <span>8 months · CP1 + CP2</span>
+  </div>
+</header>
+
+<div class="body">
+  <div class="col">
+    <section>
+      <h2>The problem</h2>
+      <p>Browser end-to-end tests are the only automated tests that see the product the way a user
+      does, and the ones teams switch off first. Asynchronous rendering, variable network timing and
+      shared login state make them fail without a code change. Industry reports 16% of Google's test
+      targets showing some flakiness and at least 2.5% of developer time spent managing it — but the
+      cost that matters is trust: a red build that might be lying gets ignored.</p>
+      <p>Most treatments are advice ("use auto-waiting"). I wanted to know <strong>how much each layer
+      of the test-execution system is worth</strong>, measured under one frozen envelope.</p>
+    </section>
+
+    <section>
+      <h2>What I built</h2>
+      <ul>
+        <li><strong>An instrumented application under test</strong> with the failure modes built in:
+        deferred rendering, a hydration window where controls look enabled before listeners attach,
+        cookie auth, per-user state, and a control surface for latency, errors and partial failure.</li>
+        <li><strong>Two harnesses over one workload</strong> — a fixed-sleep baseline and an
+        auto-waiting candidate — plus a one-switch isolation layer, so the comparison isolates one
+        variable at a time instead of comparing two frameworks.</li>
+        <li><strong>A campaign runner and analysis</strong> producing flakiness rates with Wilson
+        intervals, run-level rates and A→B→C contrasts from per-test JSONL.</li>
+        <li><strong>Five negative tests</strong> (intermittent failure, shared auth, stripped evidence,
+        telemetry gap, partial failure) and a <strong>recovery campaign</strong> that scores an
+        injection as recovered only if state matches and nothing is duplicated or lost.</li>
+        <li><strong>A diagnosis rubric</strong> with five observable criteria and named anchors, plus
+        tooling that scores real trace bundles and refuses to name a cause it cannot support.</li>
+        <li><strong>An AWS testbed</strong> in Terraform: Fargate tasks pinned to a frozen envelope,
+        S3 for bundles, FIS for platform-level faults.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Two things that went wrong</h2>
+      <p>Both are the part I would actually talk about in an interview.</p>
+      <div class="box">
+        <strong>My scorer had the bug it was built to catch.</strong> With a bundle containing no
+        evidence at all it returned "telemetry gap" rather than "insufficient evidence", because it
+        compared the count of missing signals against the count of criteria. NT-3 failed, the rule
+        changed to treat a zero as a refusal, and the test passed. An instrument that cannot tell
+        "no evidence" from "partial evidence" would have inflated the score it produces.
+      </div>
+      <div class="box">
+        <strong>The rubric then found a defect in my own evidence path.</strong> Five failing bundles
+        scored 76/100 — below threshold — and the cause was not the scorer: four bundles contained only
+        the runner's own trace, because Playwright flushes the browser trace when the context closes
+        and loses it on an early failure. Recording explicitly in a test-scoped fixture fixed it: every
+        bundle produced afterwards scores 100/100.
+      </div>
+    </section>
+  </div>
+
+  <div class="col">
+    <section>
+      <h2>What it measured</h2>
+      <div class="big">
+        <div><div class="n">50.0%</div><div class="l">flaky with fixed sleeps</div></div>
+        <div><div class="n">12.5%</div><div class="l">after auto-waiting</div></div>
+        <div><div class="n">0.0%</div><div class="l">after state isolation</div></div>
+      </div>
+      <figure>
+        <img src="fig_flakiness.png" alt="Flakiness rate by condition with Wilson intervals" />
+        <figcaption>Eight tests, frozen envelope, Wilson 95% intervals. The wide interval on C is what
+        six repetitions honestly support.</figcaption>
+      </figure>
+      <table>
+        <tr><th>Measure</th><th class="num">Value</th><th>Status</th></tr>
+        <tr><td>Flakiness rate (A → B → C)</td><td class="num">50 → 12.5 → 0%</td><td class="pass">met</td></tr>
+        <tr><td>Recovery under fault injection</td><td class="num">100% (9/9)</td><td class="pass">met</td></tr>
+        <tr><td>Negative tests</td><td class="num">5 / 5</td><td class="pass">met</td></tr>
+        <tr><td>Service error rate at load</td><td class="num">0.00%</td><td class="pass">recorded</td></tr>
+        <tr><td>Latency p95 at load</td><td class="num">319.8 ms</td><td class="pass">recorded</td></tr>
+        <tr><td>Diagnosis score</td><td class="num">76 → 100</td><td class="open">needs raters</td></tr>
+        <tr><td>Cross-browser consistency</td><td class="num">—</td><td class="open">needs CI</td></tr>
+      </table>
+      <p style="margin-top:2mm;font-size:7.4pt;color:var(--muted)">Cost of determinism: the suite runs
+      3.4× longer, because correct synchronisation waits for state rather than guessing a duration.</p>
+    </section>
+
+    <section>
+      <h2>What I would do next</h2>
+      <ul>
+        <li>Run the three-engine campaign in CI to close cross-browser consistency, which is the one
+        KPI a single-engine container cannot answer.</li>
+        <li>Raise bundle coverage — currently 1 of 7 failing executions — by moving trace capture into
+        a worker-scoped wrapper that survives a failure inside the fixture chain.</li>
+        <li>Replace application-level fault injection with platform-level faults (FIS against Fargate
+        tasks) so the recovery rate is measured against faults the code cannot anticipate.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills this demonstrates</h2>
+      <p><strong>Test engineering:</strong> flakiness measurement, wait-strategy design, negative
+      testing, fault injection, recovery verification. <strong>Distributed systems:</strong> isolation
+      and state ownership, idempotency, reconciliation from a durable checkpoint.
+      <strong>Cloud:</strong> containerised testbed design, Terraform, FIS, evidence storage with
+      lifecycle policy. <strong>Research:</strong> pre-registered metrics, confidence intervals, and
+      reporting a null result honestly.</p>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <div><code>github.com/revanthofficial21/Deterministic-Cross-Browser-End-to-End-Test-Automation</code></div>
+  <div>Paper, poster, runbook and every number reproducible from the repository</div>
+</footer>
+
+</body>
+</html>

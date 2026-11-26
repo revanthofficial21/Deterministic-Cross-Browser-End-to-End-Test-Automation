@@ -41,3 +41,13 @@ searching the repository.
 - The demonstration video, video logs, poster and individual contribution statements.
 - The three-engine campaign run: the workflow exists, the App on this account lacks
   `Actions: write`, so it must be dispatched from the Actions tab.
+
+## D7 artefacts produced
+
+| Artefact | File | Notes |
+|---|---|---|
+| Research paper | `docs/paper.pdf` | 18 pages, 12 tables, 5 figures |
+| Poster | `poster/poster.pdf` | A3, rendered from `poster/poster.html` |
+| Portfolio case study | `case-study/case-study.pdf` | A4 one-pager, rendered from HTML |
+| Demonstration runbook | `docs/DEMO-RUNBOOK.md` | ten-minute sequence with timings and expected questions |
+| Demonstration video, video logs, viva pack | — | student artefacts, not automatable |
