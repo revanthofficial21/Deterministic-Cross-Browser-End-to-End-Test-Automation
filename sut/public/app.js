@@ -127,6 +127,11 @@ async function boot() {
   $('#theme').value = settings.theme;
   $('#notifications').value = settings.notifications;
   await loadOrders();
+  // Instrumented demo knob: ?hydrateDelay=<ms> widens the window between paint and
+  // interactivity so that the window can be photographed and measured. It changes
+  // nothing about the application's behaviour, only how long the window lasts.
+  const extra = Number(new URLSearchParams(window.location.search).get('hydrateDelay') || 0);
+  if (extra > 0) await wait(extra);
   // Two animation frames: the paint is committed, but interactivity is not yet wired.
   await nextFrame();
   await nextFrame();

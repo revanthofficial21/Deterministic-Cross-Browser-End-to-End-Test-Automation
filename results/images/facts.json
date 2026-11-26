@@ -1,0 +1,11 @@
+{
+  "loadingRows": 3,
+  "skeletonVisible": 0,
+  "hydratedDuringWindow": "unset",
+  "buttonEnabledInWindow": true,
+  "hydratedAfterWindow": "true",
+  "rows": 3,
+  "total": "50",
+  "openRows": 2,
+  "rowsAtShortSleep": 0
+}
