@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Poster — Deterministic Cross-Browser E2E Test Automation</title>
+<style>
+  @page { size: 297mm 420mm; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #16202b;
+    --muted: #5c6b7a;
+    --rule: #d6dee7;
+    --navy: #1f3b57;
+    --accent: #b4532a;
+    --good: #2f7a4a;
+    --band: #eef2f7;
+  }
+  body {
+    width: 297mm; height: 419mm;
+    font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+    color: var(--ink); background: #fff;
+    display: flex; flex-direction: column;
+    padding: 0;
+  }
+  header {
+    background: var(--navy); color: #fff;
+    padding: 11mm 14mm 9mm 14mm;
+  }
+  header h1 { font-size: 28pt; line-height: 1.12; font-weight: 700; letter-spacing: -0.2pt; }
+  header h2 { font-size: 13.5pt; font-weight: 400; margin-top: 4mm; color: #cfdff0; line-height: 1.3; }
+  header .meta { margin-top: 6mm; font-size: 9.5pt; color: #a9c2d8; display: flex; gap: 8mm; }
+  .body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; padding: 7mm 14mm 3mm 14mm; }
+  section { margin-bottom: 5.2mm; }
+  h3 {
+    font-size: 11.5pt; text-transform: uppercase; letter-spacing: 0.6pt;
+    color: var(--navy); border-bottom: 1.6pt solid var(--navy);
+    padding-bottom: 1.6mm; margin-bottom: 3mm;
+  }
+  p, li { font-size: 9.2pt; line-height: 1.42; color: var(--ink); }
+  p + p { margin-top: 2.4mm; }
+  ul { list-style: none; }
+  li { padding-left: 4.2mm; position: relative; margin-bottom: 1.8mm; }
+  li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+  strong { font-weight: 700; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin-top: 3mm; }
+  .kpi { background: var(--band); border-left: 3pt solid var(--navy); padding: 3mm; }
+  .kpi .n { font-size: 19pt; font-weight: 700; color: var(--navy); line-height: 1; }
+  .kpi .l { font-size: 7.8pt; color: var(--muted); margin-top: 1.4mm; line-height: 1.25; }
+  table { width: 100%; border-collapse: collapse; margin-top: 2mm; }
+  th, td { font-size: 8.2pt; text-align: left; padding: 1.7mm 1.6mm; border-bottom: 0.6pt solid var(--rule); }
+  th { background: var(--band); font-weight: 700; color: var(--navy); font-size: 7.8pt; }
+  td.num, th.num { text-align: right; }
+  .pass { color: var(--good); font-weight: 700; }
+  .hold { color: var(--accent); font-weight: 700; }
+  figure { margin: 2mm 0 3mm 0; }
+  figure img { width: 100%; display: block; border: 0.6pt solid var(--rule); }
+  figcaption { font-size: 7.6pt; color: var(--muted); margin-top: 1.6mm; line-height: 1.3; }
+  .callout {
+    background: #fbf6f1; border-left: 3pt solid var(--accent);
+    padding: 3mm 3.5mm; font-size: 8.8pt; line-height: 1.4; margin-top: 3mm;
+  }
+  footer {
+    border-top: 1.2pt solid var(--rule); padding: 3mm 14mm 4mm 14mm;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-size: 8.2pt; color: var(--muted);
+  }
+  footer .url { font-family: "DejaVu Sans Mono", monospace; font-size: 7.8pt; color: var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Deterministic Cross-Browser<br />End-to-End Test Automation</h1>
+  <h2>Auto-waiting, state-isolated parallel execution and trace-based diagnosis of flaky browser tests</h2>
+  <div class="meta">
+    <span>Mr.&nbsp;RK · Department of Computer Science and Engineering</span>
+    <span>Capstone Project CP1 + CP2 · Cloud and Edge Systems</span>
+    <span>Semester VII–VIII</span>
+  </div>
+</header>
+
+<div class="body">
+  <div class="col">
+    <section>
+      <h3>The problem</h3>
+      <p>Browser end-to-end tests are the only automated tests that exercise a web application the
+      way a user does, and the ones most likely to be deleted. Asynchronous rendering, variable
+      network timing and shared authentication state make them fail intermittently until nobody
+      trusts them.</p>
+      <p>Industry reports 16% of Google's test targets showing some flakiness, 4–16% of tests
+      affected at Microsoft, and at least <strong>2.5% of developer time</strong> spent
+      investigating, repairing and managing flaky tests.</p>
+      <ul>
+        <li><strong>Synchronisation</strong> — the test acts on state that is not yet stable.</li>
+        <li><strong>State coupling</strong> — an outcome depends on another test's state.</li>
+        <li><strong>Evidence insufficiency</strong> — the failure cannot be explained afterwards.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Approach</h3>
+      <p>Three planes, each separately testable — which is what makes the ablation possible.</p>
+      <ul>
+        <li><strong>Control</strong> — authoring, orchestration, isolation: one signed-in state and one
+        data namespace per worker.</li>
+        <li><strong>Execution</strong> — auto-wait driver: actionability predicates, render and network
+        gating, retrying assertions.</li>
+        <li><strong>Evidence</strong> — one trace bundle per execution, scored against a frozen rubric.</li>
+      </ul>
+      <table>
+        <tr><th>Condition</th><th>Waiting</th><th>Authentication</th><th>Isolates</th></tr>
+        <tr><td><strong>A</strong></td><td>fixed sleep</td><td>one shared account</td><td>nothing</td></tr>
+        <tr><td><strong>B</strong></td><td>state-based</td><td>one shared account</td><td>wait policy</td></tr>
+        <tr><td><strong>C</strong></td><td>state-based</td><td>per worker</td><td>contribution</td></tr>
+      </table>
+      <p style="margin-top:2.6mm;font-size:8.6pt;color:var(--muted)">A → B measures the reference;
+      B → C measures the contribution on identical code.</p>
+    </section>
+
+    <section>
+      <h3>Method</h3>
+      <p>Frozen resource envelope (AC-4): 80 ms base latency plus U(0, 240) ms, 100 ms deferred
+      render, 800 ms fixed wait, four workers, three engines. Every repetition starts from freshly
+      seeded state and records the envelope it ran under. Rates carry Wilson 95% intervals, and the
+      repetition count is always reported with the rate, because the flakiness rate is monotone in it.</p>
+    </section>
+
+    <section>
+      <h3>Why it is diagnosable</h3>
+      <p>The rubric has five observable criteria worth 20 points each, frozen before the system it
+      scores was tuned: is the failing step identifiable, is the state at failure visible, is the
+      causal sequence recoverable, can product and test defect be told apart, and is a re-run
+      unnecessary.</p>
+      <div class="callout">
+        The rubric found a real defect in its own subject. Four of five failing bundles contained only
+        the runner's own trace — no browser streams — because the trace is flushed when the context
+        closes and is lost on an early failure. Recording explicitly in a test-scoped fixture fixed
+        it: every bundle produced afterwards scores <strong>100/100</strong>.
+      </div>
+    </section>
+
+    <section>
+      <h3>Limitations, stated not smoothed</h3>
+      <ul>
+        <li>One engine in the sandbox; cross-browser consistency needs the CI runner.</li>
+        <li>Small repetition counts, so the contribution's effect is a signal, not a measurement.</li>
+        <li>Bundle coverage is 1 of 7 failing executions — the score describes the bundles that exist.</li>
+        <li>Eight of 27 failures in A are navigation-interruption artefacts of the baseline itself;
+        removing them leaves 25.0% flaky, so the direction holds.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="col">
+    <section>
+      <h3>Results — measured, not projected</h3>
+      <div class="kpi-strip">
+        <div class="kpi"><div class="n">50.0%</div><div class="l">flaky test cases with fixed sleeps (A)</div></div>
+        <div class="kpi"><div class="n">12.5%</div><div class="l">after state-based auto-waiting (B)</div></div>
+        <div class="kpi"><div class="n">0.0%</div><div class="l">after per-worker isolation (C)</div></div>
+      </div>
+      <figure>
+        <img src="fig_flakiness.png" alt="Flakiness rate by condition with Wilson intervals" />
+        <figcaption>Test-level flakiness rate with Wilson 95% intervals, eight tests, eight/six/six
+        repetitions. The interval on C is wide because six repetitions cannot resolve a rate near
+        zero — reported rather than hidden.</figcaption>
+      </figure>
+      <table>
+        <tr><th>Condition</th><th class="num">Reps</th><th class="num">Flaky</th><th class="num">F</th><th class="num">Run-level</th><th class="num">Suite</th></tr>
+        <tr><td>A fixed sleeps</td><td class="num">8</td><td class="num">4/8</td><td class="num">50.0%</td><td class="num">100%</td><td class="num">17.8 s</td></tr>
+        <tr><td>B auto-waiting</td><td class="num">6</td><td class="num">1/8</td><td class="num">12.5%</td><td class="num">16.7%</td><td class="num">62.0 s</td></tr>
+        <tr><td>C isolated</td><td class="num">6</td><td class="num">0/8</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">59.5 s</td></tr>
+      </table>
+      <p style="margin-top:2.6mm;font-size:8.6pt;color:var(--muted)">The residual failure after B was
+      the shared-account settings collision, and isolation removed it. Cost of determinism: the suite
+      takes 3.4× longer, because correct synchronisation waits for state instead of guessing at a
+      duration.</p>
+    </section>
+
+    <section>
+      <h3>Acceptance campaign</h3>
+      <table>
+        <tr><th>KPI</th><th>Measure</th><th class="num">Value</th><th>Verdict</th></tr>
+        <tr><td>KPI-1</td><td>Flakiness rate</td><td class="num">50 → 12.5 → 0.0%</td><td class="pass">pass</td></tr>
+        <tr><td>KPI-2</td><td>Cross-browser consistency</td><td class="num">—</td><td class="hold">needs CI</td></tr>
+        <tr><td>KPI-3</td><td>Diagnosis without re-run</td><td class="num">76 → 100</td><td class="hold">raters</td></tr>
+        <tr><td>KPI-4</td><td>Recovery under fault injection</td><td class="num">100% (9/9)</td><td class="pass">pass</td></tr>
+        <tr><td>KPI-5</td><td>Service error rate at load</td><td class="num">0.00%</td><td class="pass">recorded</td></tr>
+        <tr><td>KPI-6</td><td>Request latency p95</td><td class="num">319.8 ms</td><td class="pass">recorded</td></tr>
+      </table>
+      <p style="margin-top:2.6mm">All five mandatory negative tests produced their documented safe
+      behaviour: intermittent failure attributed 11/11, shared-state collision reproduced 7/12 rounds
+      and removed 0/48 under isolation, a stripped bundle refused diagnosis instead of guessing, a
+      removed network stream named as a telemetry gap, and a partial failure recovered with
+      <strong>0 duplicates and 0 lost writes</strong> across 64 ambiguous responses.</p>
+    </section>
+
+
+    <section>
+      <h3>Contribution</h3>
+      <p>A measured account of what each layer of a browser test-execution system buys: a 75%
+      relative reduction in flakiness from state-based synchronisation, the removal of the residual
+      failure by per-worker state isolation, and a diagnostic instrument that proved its own worth by
+      finding a defect in the evidence path before it found one in the product.</p>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="url">github.com/revanthofficial21/Deterministic-Cross-Browser-End-to-End-Test-Automation</div>
+    <div style="margin-top:1.6mm">Full paper: docs/paper.pdf · Campaign data: results/summary.md</div>
+  </div>
+  <div style="text-align:right">
+    <div>Chromium 158 · Playwright 1.49 · Node 20</div>
+    <div style="margin-top:1.6mm">All figures reproducible from the repository</div>
+  </div>
+</footer>
+
+</body>
+</html>
