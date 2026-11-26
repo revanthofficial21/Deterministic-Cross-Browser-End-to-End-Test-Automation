@@ -23,6 +23,9 @@ const cfg = {
   renderDelay: Number(process.env.RENDER_DELAY ?? 120),
   failRate: Number(process.env.FAIL_RATE ?? 0),
   failStatus: Number(process.env.FAIL_STATUS ?? 503),
+  // NT-5: the write is applied server-side, then the response is destroyed. The
+  // client cannot tell whether the write happened.
+  dropResponseRate: Number(process.env.DROP_RESPONSE_RATE ?? 0),
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -33,6 +36,8 @@ const users = new Map();   // username -> { id, password, orders, settings }
 const sessions = new Map(); // sid -> username
 
 let orderSeq = 1000;
+// Idempotency ledger: idempotency-key -> { username, orderId }
+const idempotency = new Map();
 
 function seedUser(i) {
   const username = `u${i}`;
@@ -132,8 +137,24 @@ app.post('/api/orders', dataRoute, (req, res) => {
   if (!u) return;
   const { item, amount = 5, status = 'open' } = req.body || {};
   if (!item) return res.status(400).json({ error: 'item_required' });
+
+  const key = req.headers['idempotency-key'];
+  if (key) {
+    const seen = idempotency.get(`${u.id}:${key}`);
+    if (seen) {
+      const existing = u.orders.find((o) => o.id === seen);
+      return res.status(200).json({ order: existing, replayed: true });
+    }
+  }
+
   const order = { id: `o-${++orderSeq}`, item, amount: Number(amount), status };
   u.orders.push(order);
+  if (key) idempotency.set(`${u.id}:${key}`, order.id);
+
+  // Partial failure: applied, then the response never arrives.
+  if (cfg.dropResponseRate > 0 && Math.random() < cfg.dropResponseRate) {
+    return req.socket.destroy();
+  }
   res.status(201).json({ order });
 });
 
@@ -167,10 +188,19 @@ app.get('/_health', (req, res) => res.json({ ok: true, users: users.size, cfg })
 app.get('/_control', (req, res) => res.json(cfg));
 
 app.post('/_control', (req, res) => {
-  for (const k of ['latencyBase', 'latencySpread', 'renderDelay', 'failRate', 'failStatus']) {
+  for (const k of ['latencyBase', 'latencySpread', 'renderDelay', 'failRate', 'failStatus', 'dropResponseRate']) {
     if (req.body && typeof req.body[k] === 'number') cfg[k] = req.body[k];
   }
   res.json(cfg);
+});
+
+// Observed state for reconciliation (NT-5): what the server actually holds.
+app.get('/_state/:username', (req, res) => {
+  const u = users.get(req.params.username);
+  if (!u) return res.status(404).json({ error: 'no_such_user' });
+  const items = u.orders.map((o) => o.item).sort();
+  const checksum = crypto.createHash('sha1').update(JSON.stringify(items)).digest('hex').slice(0, 12);
+  res.json({ username: u.id, count: u.orders.length, checksum, items });
 });
 
 // Reset one account's data. Used by the isolation layer between repetitions.

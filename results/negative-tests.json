@@ -1,0 +1,96 @@
+{
+  "generatedAt": "2026-11-26T03:03:08.901Z",
+  "passed": 5,
+  "held": 0,
+  "failed": 0,
+  "results": [
+    {
+      "id": "NT-1",
+      "title": "Intermittent failure injected at the application boundary",
+      "at": "2026-11-26T03:03:02.353Z",
+      "trigger": "failRate=0.4 on the SUT data routes for 40 requests",
+      "expected": "Failures are reported, every failure is attributable to the injected fault, no request is silently passed, and the system returns to clean once the fault is removed",
+      "observed": {
+        "baselineErrorRate": "0.000",
+        "injectedErrorRate": "0.450",
+        "errorsAttributedToFault": "18/18",
+        "errorRateAfterRemoval": "0.000",
+        "recoveryMs": 2973
+      },
+      "verdict": "pass",
+      "residualRisk": "low: failures are attributable, but a real product error during an injection window would be indistinguishable from the injected fault",
+      "durationMs": 9474
+    },
+    {
+      "id": "NT-2",
+      "title": "Shared authentication state across parallel flows",
+      "at": "2026-11-26T03:03:07.003Z",
+      "trigger": "4 concurrent writers to one account over 12 rounds, repeated with one account per writer",
+      "expected": "With a shared account the collision is observable; with per-worker isolation no writer observes another writer’s value",
+      "observed": {
+        "sharedAccountRoundsWithForeignValue": "4/12",
+        "isolatedRoundsWithForeignValue": "0/48",
+        "isolationRemovesCoupling": true
+      },
+      "verdict": "pass",
+      "residualRisk": "low: coupling is reproducible and removed by isolation; a suite that still shares an account is not protected",
+      "durationMs": 4646
+    },
+    {
+      "id": "NT-3",
+      "title": "A failure stripped of trace artefacts",
+      "at": "2026-11-26T03:03:07.030Z",
+      "trigger": "diagnosis attempted against a failure whose trace bundle is absent",
+      "expected": "The system reports insufficient evidence and declines to name a cause, instead of producing a confident but unsupported diagnosis",
+      "observed": {
+        "scoreWithEvidence": 100,
+        "verdictWithEvidence": "diagnosed",
+        "scoreWithoutEvidence": 0,
+        "verdictWithoutEvidence": "insufficient_evidence",
+        "namedCauseWithoutEvidence": null
+      },
+      "verdict": "pass",
+      "residualRisk": "low: the failure mode is a refusal to diagnose, which is safe",
+      "durationMs": 25
+    },
+    {
+      "id": "NT-4",
+      "title": "Telemetry insufficient to identify the failing component",
+      "at": "2026-11-26T03:03:07.038Z",
+      "trigger": "the network stream is removed from an otherwise complete trace bundle",
+      "expected": "The gap is reported as a distinct outcome class naming the missing signal, not as a low-confidence diagnosis",
+      "observed": {
+        "score": 70,
+        "verdict": "telemetry_gap",
+        "missingSignals": [
+          "causal_sequence"
+        ]
+      },
+      "verdict": "pass",
+      "residualRisk": "low: the gap is named, so the operator knows which signal to add",
+      "durationMs": 33
+    },
+    {
+      "id": "NT-5",
+      "title": "Partial failure leaves desired and observed state inconsistent",
+      "at": "2026-11-26T03:03:08.598Z",
+      "trigger": "dropResponseRate=0.5: the write is applied server-side and the response is destroyed, so the client cannot tell whether it succeeded",
+      "expected": "No silent loss and no duplicate work; the client retries with an idempotency key and reconciliation from the last durable checkpoint proves the observed state matches the intended state",
+      "observed": {
+        "writesIntended": 20,
+        "acknowledged": 20,
+        "ambiguousResponses": 9,
+        "ordersBefore": 3,
+        "ordersAfter": 23,
+        "created": 20,
+        "duplicates": 0,
+        "lost": 0,
+        "checksumAfter": "00e1a42ca80c",
+        "reconcileMs": 3
+      },
+      "verdict": "pass",
+      "residualRisk": "low: exactly-once effect is preserved by the idempotency key, but only for clients that send one",
+      "durationMs": 1554
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "declaredLoad": {
+    "concurrency": 16,
+    "seconds": 20,
+    "endpoint": "GET /api/orders"
+  },
+  "requests": 1522,
+  "throughputPerSecond": 75.2,
+  "errorRate": 0,
+  "statusCounts": {
+    "200": 1522
+  },
+  "latencyMs": {
+    "p50": 210.9,
+    "p95": 319.8,
+    "p99": 332.4,
+    "max": 414.1,
+    "samples": 1522
+  },
+  "measuredAt": "2026-11-26T03:09:58.307Z"
+}
