@@ -166,8 +166,42 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(0);
   }
 
+  // Bundle coverage: the score says how good a bundle is, this says how many failing
+  // executions actually produced one. Both numbers belong in the report.
+  if (args[0] === '--coverage') {
+    const jsonl = args[1];
+    const dir = args[2];
+    const recs = fs
+      .readFileSync(jsonl, 'utf8')
+      .split('\n')
+      .filter(Boolean)
+      .map((l) => JSON.parse(l));
+    const failures = recs.filter((r) => r.status !== 'passed');
+    const zips = [];
+    const walk = (d) => {
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) walk(p);
+        else if (e.name.endsWith('.zip')) zips.push(p);
+      }
+    };
+    if (fs.existsSync(dir)) walk(dir);
+    const withBundle = failures.filter((f) =>
+      zips.some((z) => z.includes(f.test.replace(/[^a-z0-9]+/gi, '-').slice(0, 20)))
+    ).length;
+    const ratio = failures.length ? Math.min(zips.length, failures.length) / failures.length : 0;
+    console.log(`\nfailing executions      ${failures.length}`);
+    console.log(`bundles on disk         ${zips.length}`);
+    console.log(`bundle coverage         ${(ratio * 100).toFixed(1)}% (${Math.min(zips.length, failures.length)} of ${failures.length})`);
+    console.log(`matched by test title   ${withBundle} of ${failures.length} (per-test attribution needs the`);
+    console.log(`                        test id in the records; the reporter now writes it)`);
+    console.log(`\nCoverage is reported separately from the score: a complete bundle for one`);
+    console.log(`failure does not tell you how many failures went unrecorded.`);
+    process.exit(0);
+  }
+
   if (args.length === 0) {
-    console.log('usage: node scripts/diagnose.mjs <trace.zip ...> | --sheet');
+    console.log('usage: node scripts/diagnose.mjs <trace.zip ...> | --sheet | --coverage <jsonl> <dir>');
     process.exit(2);
   }
 

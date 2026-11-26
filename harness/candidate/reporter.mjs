@@ -20,6 +20,7 @@ export default class JsonlReporter {
       browser: project ? project.name : 'chromium',
       worker: result.workerIndex,
       test: test.title,
+      testId: test.id || null,
       status: result.status,
       durationMs: result.duration,
       error: result.error ? String(result.error.message || '').split('\n')[0].slice(0, 240) : null,
