@@ -3,3 +3,5 @@ results/artifacts/
 **/.auth/
 *.log
 .DS_Store
+**/results/artifacts/
+**/results/images/
