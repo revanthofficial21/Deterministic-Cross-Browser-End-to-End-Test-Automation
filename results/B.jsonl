@@ -1,0 +1,48 @@
+{"condition":"B","run":"1","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":18357,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":18643,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":18796,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":26302,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":0,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":14496,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":15254,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":1,"test":"T5 settings persist across a reload","status":"passed","durationMs":17193,"error":null}
+{"condition":"B","run":"1","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":15541,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":18253,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":17884,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":19645,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":26825,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":1,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":14616,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"passed","durationMs":17065,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":15559,"error":null}
+{"condition":"B","run":"2","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":15463,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":18937,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":19772,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":20238,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":25905,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":13345,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":1,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":15319,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"passed","durationMs":16547,"error":null}
+{"condition":"B","run":"3","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":16807,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":18760,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":19640,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":19690,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":27026,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":13930,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":1,"test":"T5 settings persist across a reload","status":"passed","durationMs":16361,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":0,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":15125,"error":null}
+{"condition":"B","run":"4","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":16697,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":18852,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":19275,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":20055,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":25464,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":0,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":13686,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":13630,"error":null}
+{"condition":"B","run":"5","browser":"chromium","worker":1,"test":"T5 settings persist across a reload","status":"failed","durationMs":18882,"error":"Error: \u001b[31mTimed out 8000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m"}
+{"condition":"B","run":"5","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":16470,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":18839,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":18950,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":18575,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":24258,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":11939,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":1,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"passed","durationMs":12597,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"passed","durationMs":14158,"error":null}
+{"condition":"B","run":"6","browser":"chromium","worker":3,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":15916,"error":null}

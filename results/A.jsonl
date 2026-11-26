@@ -1,0 +1,64 @@
+{"condition":"A","run":"1","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2737,"error":null}
+{"condition":"A","run":"1","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"failed","durationMs":2733,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"1","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":2800,"error":null}
+{"condition":"A","run":"1","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"failed","durationMs":5270,"error":"total 57 != NaN"}
+{"condition":"A","run":"1","browser":"chromium","worker":1,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":6228,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"1","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"failed","durationMs":6388,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"1","browser":"chromium","worker":2,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":6649,"error":null}
+{"condition":"A","run":"1","browser":"chromium","worker":3,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":4952,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2564,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":2880,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":3,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":2951,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":2,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":4030,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"failed","durationMs":3858,"error":"settings status was \"\""}
+{"condition":"A","run":"2","browser":"chromium","worker":1,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":5004,"error":null}
+{"condition":"A","run":"2","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"failed","durationMs":3921,"error":"filter leaked status \"paid\""}
+{"condition":"A","run":"2","browser":"chromium","worker":3,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":5637,"error":"expected 3 rows after unrelated action, found 0"}
+{"condition":"A","run":"3","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":2737,"error":null}
+{"condition":"A","run":"3","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2845,"error":null}
+{"condition":"A","run":"3","browser":"chromium","worker":3,"test":"T3 displayed total equals the sum of amounts","status":"failed","durationMs":2844,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"3","browser":"chromium","worker":2,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":4524,"error":null}
+{"condition":"A","run":"3","browser":"chromium","worker":1,"test":"T5 settings persist across a reload","status":"failed","durationMs":6610,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"3","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":5240,"error":null}
+{"condition":"A","run":"3","browser":"chromium","worker":3,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":6986,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"3","browser":"chromium","worker":0,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":7323,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2610,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":2660,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":2945,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":3806,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"failed","durationMs":5492,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"4","browser":"chromium","worker":3,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":4294,"error":null}
+{"condition":"A","run":"4","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":5736,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"4","browser":"chromium","worker":1,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":6277,"error":null}
+{"condition":"A","run":"5","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"failed","durationMs":3034,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"5","browser":"chromium","worker":0,"test":"T2 order list paints with the seeded rows","status":"failed","durationMs":3151,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"5","browser":"chromium","worker":1,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":3463,"error":null}
+{"condition":"A","run":"5","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"failed","durationMs":3352,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"5","browser":"chromium","worker":3,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":4508,"error":null}
+{"condition":"A","run":"5","browser":"chromium","worker":2,"test":"T5 settings persist across a reload","status":"failed","durationMs":5180,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"5","browser":"chromium","worker":0,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":5338,"error":null}
+{"condition":"A","run":"5","browser":"chromium","worker":1,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":5392,"error":"expected 3 rows after unrelated action, found 5"}
+{"condition":"A","run":"6","browser":"chromium","worker":3,"test":"T3 displayed total equals the sum of amounts","status":"failed","durationMs":2676,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"6","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":3030,"error":null}
+{"condition":"A","run":"6","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":3048,"error":null}
+{"condition":"A","run":"6","browser":"chromium","worker":2,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":4377,"error":null}
+{"condition":"A","run":"6","browser":"chromium","worker":3,"test":"T5 settings persist across a reload","status":"failed","durationMs":6649,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"6","browser":"chromium","worker":1,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":6874,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"6","browser":"chromium","worker":2,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":5588,"error":null}
+{"condition":"A","run":"6","browser":"chromium","worker":0,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":7157,"error":null}
+{"condition":"A","run":"7","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2675,"error":null}
+{"condition":"A","run":"7","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"passed","durationMs":2761,"error":null}
+{"condition":"A","run":"7","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"passed","durationMs":2888,"error":null}
+{"condition":"A","run":"7","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"failed","durationMs":5324,"error":"total 57 != NaN"}
+{"condition":"A","run":"7","browser":"chromium","worker":0,"test":"T5 settings persist across a reload","status":"failed","durationMs":6560,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"7","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":6745,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"7","browser":"chromium","worker":1,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":7383,"error":null}
+{"condition":"A","run":"7","browser":"chromium","worker":3,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":5704,"error":null}
+{"condition":"A","run":"8","browser":"chromium","worker":1,"test":"T2 order list paints with the seeded rows","status":"failed","durationMs":2813,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"8","browser":"chromium","worker":0,"test":"T1 sign-in reaches the dashboard","status":"passed","durationMs":2959,"error":null}
+{"condition":"A","run":"8","browser":"chromium","worker":2,"test":"T3 displayed total equals the sum of amounts","status":"failed","durationMs":2924,"error":"page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""}
+{"condition":"A","run":"8","browser":"chromium","worker":3,"test":"T4 adding an order updates the list and the total","status":"passed","durationMs":4113,"error":null}
+{"condition":"A","run":"8","browser":"chromium","worker":3,"test":"T6 open-only filter shows only open orders","status":"passed","durationMs":3927,"error":null}
+{"condition":"A","run":"8","browser":"chromium","worker":1,"test":"T5 settings persist across a reload","status":"failed","durationMs":5986,"error":"theme after reload was \"light\""}
+{"condition":"A","run":"8","browser":"chromium","worker":2,"test":"T7 order list still shows the seeded rows after an unrelated action","status":"failed","durationMs":6400,"error":"expected 3 rows after unrelated action, found 6"}
+{"condition":"A","run":"8","browser":"chromium","worker":0,"test":"T8 creating several orders keeps the total consistent","status":"passed","durationMs":6750,"error":null}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sign in \u2014 DX E2E reference application</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="bar"><strong>Billing console</strong></header>
+  <main>
+    <section class="card">
+      <h1>Sign in</h1>
+      <form id="login-form">
+        <label>Username <input id="username" autocomplete="username" /></label>
+        <label>Password <input id="password" type="password" autocomplete="current-password" /></label>
+        <button id="submit" type="submit">Sign in</button>
+        <span id="login-error" data-state="idle"></span>
+      </form>
+    </section>
+  </main>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value,
+        }),
+      });
+      if (res.ok) { window.location = '/'; return; }
+      const el = document.getElementById('login-error');
+      el.textContent = 'Invalid credentials';
+      el.dataset.state = 'error';
+    });
+  </script>
+</body>
+</html>

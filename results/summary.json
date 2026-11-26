@@ -1,0 +1,299 @@
+{
+  "generatedAt": "2026-11-26T02:20:41.601Z",
+  "conditions": {
+    "A": {
+      "repetitions": 8,
+      "tests": 8,
+      "executions": 64,
+      "executionFailureRate": 0.421875,
+      "flakinessRate": 0.5,
+      "flakinessCI": [
+        0.21521252682444186,
+        0.7847874731755582
+      ],
+      "flakyTests": 4,
+      "alwaysFailingTests": 2,
+      "runLevelRate": 1,
+      "runLevelCI": [
+        0.6755843804891231,
+        1
+      ],
+      "runsWithFailure": 8,
+      "crossBrowserConsistency": null,
+      "browsers": [
+        "chromium"
+      ],
+      "meanSuiteDurationMs": 17773,
+      "perTest": [
+        {
+          "test": "T1 sign-in reaches the dashboard",
+          "n": 8,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T3 displayed total equals the sum of amounts",
+          "n": 8,
+          "fails": 5,
+          "failureRate": 0.625,
+          "flaky": true,
+          "alwaysFailing": false,
+          "sampleError": "page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""
+        },
+        {
+          "test": "T2 order list paints with the seeded rows",
+          "n": 8,
+          "fails": 2,
+          "failureRate": 0.25,
+          "flaky": true,
+          "alwaysFailing": false,
+          "sampleError": "page.goto: Navigation to \"http://127.0.0.1:4173/\" is interrupted by another navigation to \"http://127.0.0.1:4173/\""
+        },
+        {
+          "test": "T4 adding an order updates the list and the total",
+          "n": 8,
+          "fails": 3,
+          "failureRate": 0.375,
+          "flaky": true,
+          "alwaysFailing": false,
+          "sampleError": "total 57 != NaN"
+        },
+        {
+          "test": "T7 order list still shows the seeded rows after an unrelated action",
+          "n": 8,
+          "fails": 8,
+          "failureRate": 1,
+          "flaky": false,
+          "alwaysFailing": true,
+          "sampleError": "expected 3 rows after unrelated action, found 6"
+        },
+        {
+          "test": "T5 settings persist across a reload",
+          "n": 8,
+          "fails": 8,
+          "failureRate": 1,
+          "flaky": false,
+          "alwaysFailing": true,
+          "sampleError": "theme after reload was \"light\""
+        },
+        {
+          "test": "T8 creating several orders keeps the total consistent",
+          "n": 8,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T6 open-only filter shows only open orders",
+          "n": 8,
+          "fails": 1,
+          "failureRate": 0.125,
+          "flaky": true,
+          "alwaysFailing": false,
+          "sampleError": "filter leaked status \"paid\""
+        }
+      ]
+    },
+    "B": {
+      "repetitions": 6,
+      "tests": 8,
+      "executions": 48,
+      "executionFailureRate": 0.020833333333333332,
+      "flakinessRate": 0.125,
+      "flakinessCI": [
+        0.02241690886329617,
+        0.4708948057698615
+      ],
+      "flakyTests": 1,
+      "alwaysFailingTests": 0,
+      "runLevelRate": 0.16666666666666666,
+      "runLevelCI": [
+        0.03005258587173032,
+        0.563509436563646
+      ],
+      "runsWithFailure": 1,
+      "crossBrowserConsistency": null,
+      "browsers": [
+        "chromium"
+      ],
+      "meanSuiteDurationMs": 62040,
+      "perTest": [
+        {
+          "test": "T2 order list paints with the seeded rows",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T1 sign-in reaches the dashboard",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T3 displayed total equals the sum of amounts",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T4 adding an order updates the list and the total",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T6 open-only filter shows only open orders",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T7 order list still shows the seeded rows after an unrelated action",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T5 settings persist across a reload",
+          "n": 6,
+          "fails": 1,
+          "failureRate": 0.1667,
+          "flaky": true,
+          "alwaysFailing": false,
+          "sampleError": "Error: \u001b[31mTimed out 8000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m"
+        },
+        {
+          "test": "T8 creating several orders keeps the total consistent",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        }
+      ]
+    },
+    "C": {
+      "repetitions": 6,
+      "tests": 8,
+      "executions": 48,
+      "executionFailureRate": 0,
+      "flakinessRate": 0,
+      "flakinessCI": [
+        0,
+        0.3244156195108769
+      ],
+      "flakyTests": 0,
+      "alwaysFailingTests": 0,
+      "runLevelRate": 0,
+      "runLevelCI": [
+        0,
+        0.3903430336530645
+      ],
+      "runsWithFailure": 0,
+      "crossBrowserConsistency": null,
+      "browsers": [
+        "chromium"
+      ],
+      "meanSuiteDurationMs": 59545,
+      "perTest": [
+        {
+          "test": "T3 displayed total equals the sum of amounts",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T2 order list paints with the seeded rows",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T1 sign-in reaches the dashboard",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T4 adding an order updates the list and the total",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T6 open-only filter shows only open orders",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T5 settings persist across a reload",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T7 order list still shows the seeded rows after an unrelated action",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        },
+        {
+          "test": "T8 creating several orders keeps the total consistent",
+          "n": 6,
+          "fails": 0,
+          "failureRate": 0,
+          "flaky": false,
+          "alwaysFailing": false,
+          "sampleError": null
+        }
+      ]
+    }
+  }
+}

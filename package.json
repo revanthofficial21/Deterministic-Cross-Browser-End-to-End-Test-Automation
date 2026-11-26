@@ -1,0 +1,21 @@
+{
+  "name": "dx-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic cross-browser end-to-end test automation: reference, contribution and acceptance harness",
+  "scripts": {
+    "sut": "node sut/server.js",
+    "baseline": "node harness/baseline/run.mjs",
+    "candidate": "playwright test --config harness/candidate/playwright.config.mjs",
+    "campaign": "node scripts/campaign.mjs",
+    "analyze": "node scripts/analyze.mjs"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.0",
+    "selenium-webdriver": "^4.25.0"
+  }
+}

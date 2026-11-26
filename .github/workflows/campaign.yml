@@ -1,0 +1,98 @@
+name: acceptance-campaign
+
+on:
+  workflow_dispatch:
+    inputs:
+      reps:
+        description: Repetitions per condition
+        default: "50"
+      browsers:
+        description: Engines
+        default: "chromium,firefox,webkit"
+
+jobs:
+  campaign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        condition: [A, B, C]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Install all three engines
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Run condition ${{ matrix.condition }}
+        env:
+          BROWSERS: ${{ inputs.browsers || 'chromium,firefox,webkit' }}
+          WORKERS: "4"
+        run: |
+          node scripts/campaign.mjs \
+            --condition ${{ matrix.condition }} \
+            --reps ${{ inputs.reps || 50 }} \
+            --workers 4 \
+            --browsers "$BROWSERS"
+      - name: Upload per-test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-${{ matrix.condition }}
+          path: |
+            results/${{ matrix.condition }}.jsonl
+            results/manifest.jsonl
+            results/artifacts
+          retention-days: 30
+
+  analyze:
+    needs: campaign
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+          pattern: evidence-*
+          merge-multiple: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Compute flakiness rates
+        run: node scripts/analyze.mjs results
+      - name: Publish summary
+        run: cat results/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: summary
+          path: results/summary.*
+
+  # Optional: run the same campaign on AWS Fargate with FIS fault injection.
+  # Requires AWS_ROLE_ARN secret and the stack in infra/terraform applied.
+  aws-testbed:
+    if: vars.AWS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ap-south-1
+      - name: Start one campaign task per condition
+        run: |
+          for C in A B C; do
+            aws ecs run-task \
+              --cluster dx-e2e-testbed \
+              --task-definition dx-e2e-campaign \
+              --launch-type FARGATE \
+              --overrides "{\"containerOverrides\":[{\"name\":\"campaign\",\"command\":[\"node\",\"scripts/campaign.mjs\",\"--condition\",\"$C\",\"--reps\",\"50\",\"--workers\",\"4\"]}]}" \
+              --network-configuration "awsvpcConfiguration={subnets=[${{ secrets.SUBNET_IDS }}],securityGroups=[${{ secrets.SG_ID }}],assignPublicIp=DISABLED}"
+          done
+      - name: Start fault injection (NT-1)
+        run: aws fis start-experiment --experiment-template-id "${{ secrets.FIS_TEMPLATE_ID }}"
