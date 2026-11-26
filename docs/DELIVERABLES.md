@@ -50,4 +50,6 @@ searching the repository.
 | Poster | `poster/poster.pdf` | A3, rendered from `poster/poster.html` |
 | Portfolio case study | `case-study/case-study.pdf` | A4 one-pager, rendered from HTML |
 | Demonstration runbook | `docs/DEMO-RUNBOOK.md` | ten-minute sequence with timings and expected questions |
+| Viva question bank | `docs/VIVA-QUESTION-BANK.md` | fifteen likely questions with answers, plus the numbers to have ready |
+| Problem-validation record | `validation-record/record.pdf` | printable two-page record for a named stakeholder's signature (D1) |
 | Demonstration video, video logs, viva pack | — | student artefacts, not automatable |

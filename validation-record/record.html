@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Problem-validation record — Deterministic Cross-Browser E2E Test Automation</title>
+<style>
+  @page { size: 210mm 297mm; margin: 10mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif; color: #16202b; font-size: 8.6pt; line-height: 1.45; }
+  h1 { font-size: 13.5pt; color: #1f3b57; line-height: 1.2; }
+  .sub { font-size: 9pt; color: #5c6b7a; margin-top: 1.5mm; }
+  .rule { border-bottom: 1.6pt solid #1f3b57; margin: 3mm 0 4mm 0; }
+  h2 { font-size: 8.8pt; text-transform: uppercase; letter-spacing: 0.5pt; color: #1f3b57;
+       margin: 3.4mm 0 1.6mm 0; border-bottom: 0.8pt solid #d9e0e8; padding-bottom: 1mm; }
+  p { margin-bottom: 1.5mm; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 3mm 0; }
+  th, td { font-size: 8pt; text-align: left; padding: 1.4mm 1.8mm; border: 0.6pt solid #cfd8e2; vertical-align: top; }
+  th { background: #eff3f8; color: #1f3b57; font-weight: 700; width: 42mm; }
+  code { font-family: "DejaVu Sans Mono", monospace; font-size: 7.8pt; background: #f2f5f8; padding: 0.6mm 1.2mm; }
+  .note { font-size: 8pt; color: #5c6b7a; }
+  ul { list-style: none; margin: 1mm 0 2mm 0; }
+  li { padding-left: 4mm; position: relative; margin-bottom: 0.8mm; font-size: 7.9pt; }
+  li::before { content: "—"; position: absolute; left: 0; color: #b4532a; }
+  .fill { border-bottom: 0.8pt solid #7d8a97; display: inline-block; min-width: 62mm; }
+  .sig { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 2.5mm; }
+  .sig div { border-top: 0.8pt solid #7d8a97; padding-top: 1.5mm; font-size: 8pt; color: #5c6b7a; }
+  .decision { border: 0.8pt solid #1f3b57; padding: 2.4mm; margin-top: 2mm; }
+  .decision label { display: block; font-size: 8pt; margin-bottom: 1.1mm; }
+  .box { display: inline-block; width: 3.4mm; height: 3.4mm; border: 0.8pt solid #16202b; margin-right: 2mm; vertical-align: -0.4mm; }
+  .footer { margin-top: 2.5mm; border-top: 0.8pt solid #d9e0e8; padding-top: 2mm; font-size: 7.6pt; color: #5c6b7a; }
+</style>
+</head>
+<body>
+
+<h1>Capstone Project — Problem-Validation Record</h1>
+<div class="sub">Deterministic Cross-Browser End-to-End Test Automation · CP1 Gate 1 · Cloud and Edge Systems</div>
+<div class="rule"></div>
+
+<table>
+  <tr><th>Student</th><td>Mr. RK, Department of Computer Science and Engineering</td></tr>
+  <tr><th>Project</th><td>Deterministic cross-browser end-to-end test automation: auto-waiting, state-isolated parallel execution and trace-based diagnosis</td></tr>
+  <tr><th>Semester</th><td>VII (CP1) — record completed before implementation proceeds</td></tr>
+  <tr><th>Date of reproduction</th><td>26 November 2026</td></tr>
+</table>
+
+<h2>1. The limitation claimed by the project</h2>
+<p>End-to-end browser tests fail intermittently because of asynchronous rendering, variable network timing
+and shared authentication state, until the team stops trusting them. The charter requires this limitation to
+be reproduced with versioned evidence, or validated by a named stakeholder, before implementation proceeds.</p>
+
+<h2>2. Reproduction evidence</h2>
+<p>The limitation was reproduced against an instrumented application under test with asynchronous
+rendering, a hydration window, cookie authentication and per-user server-side state. A fixed-sleep test
+suite was executed repeatedly under a frozen resource envelope.</p>
+
+<table>
+  <tr><th>Environment</th><td>Chromium 158.0.8127.18 · Playwright 1.49.0 · Node 20.20.2 · 2 vCPU container · 4 parallel workers</td></tr>
+  <tr><th>Workload</th><td>8 end-to-end test cases: sign-in, order list, total reconciliation, order creation, settings persistence, filtering, post-action consistency, multi-item flow</td></tr>
+  <tr><th>Envelope</th><td>80 ms base latency + U(0, 240) ms per API call · 100 ms deferred render · 800 ms fixed wait · identical versions for all conditions</td></tr>
+  <tr><th>Repetitions</th><td>8 suite executions, each starting from freshly seeded state</td></tr>
+  <tr><th>Observed result</th><td><strong>50.0% of test cases were flaky</strong> (4 of 8 both passed and failed, Wilson 95% CI 21.5–78.5%) · <strong>100% of suite executions contained at least one failure</strong> · 42.2% of individual test executions failed</td></tr>
+  <tr><th>Command</th><td><code>node scripts/campaign.mjs --condition A --reps 8 --workers 4</code> then <code>node scripts/analyze.mjs results</code></td></tr>
+  <tr><th>Artefacts</th><td><code>results/A.jsonl</code> (per-test records), <code>results/manifest.jsonl</code> (envelope per repetition), <code>results/summary.md</code> (rates and intervals), <code>results/figures/</code></td></tr>
+  <tr><th>Same system, synchronised</th><td>With state-based auto-waiting and per-worker isolation: <strong>0 failures in 112 test executions</strong> across 14 repetitions, so the effect is attributable to the execution system rather than to the application</td></tr>
+</table>
+
+<h2>3. What this evidence establishes, and what it does not</h2>
+<ul>
+  <li><strong>Establishes:</strong> under this workload and envelope, a fixed-sleep, shared-account suite is intermittently unreliable at a rate that would cause a team to distrust it, and the unreliability is removable by the execution system rather than by rewriting the application.</li>
+  <li><strong>Does not establish:</strong> that every web application fails at this rate, or that the rate generalises beyond this workload, envelope and engine.</li>
+  <li><strong>Not covered here:</strong> cross-browser consistency (needs three engines), the platform-level fault campaign, and the diagnosis score (needs two independent raters).</li>
+</ul>
+
+<h2 style="page-break-before: always; margin-top: 0">4. Stakeholder attestation</h2>
+<p class="note">To be completed by a named stakeholder — a supervisor, project guide, or the owner of a real
+test suite the project is intended to serve.</p>
+
+<p>I confirm that I have reviewed the reproduction above and that the limitation it demonstrates is
+representative of a problem relevant to: <span class="fill"></span></p>
+
+<div class="decision">
+  <label><span class="box"></span> <strong>Proceed</strong> — the limitation is validated; implementation may continue as scoped.</label>
+  <label><span class="box"></span> <strong>Proceed with revised scope</strong> — validated, with the following change to scope:</label>
+  <label style="margin-left:8mm"><span class="fill" style="min-width:130mm"></span></label>
+  <label><span class="box"></span> <strong>Rescope or replace</strong> — the limitation is not representative; the project must be rescoped.</label>
+  <label style="margin-top:2mm">Comments: <span class="fill" style="min-width:150mm"></span></label>
+</div>
+
+<div class="sig" style="grid-template-columns: 1.6fr 1fr 0.8fr;">
+  <div>Stakeholder name, designation and organisation</div>
+  <div>Signature</div>
+  <div>Date</div>
+</div>
+
+<h2>5. Student declaration</h2>
+<p>I confirm that the evidence above was produced by the versioned code in the project repository, that no
+measurement was altered after the fact, and that the open items in Section 3 are reported rather than
+omitted. &nbsp; Signed: <span class="fill" style="min-width:45mm"></span> &nbsp; Date: <span class="fill" style="min-width:28mm"></span></p>
+
+<div class="footer">
+  Repository: github.com/revanthofficial21/Deterministic-Cross-Browser-End-to-End-Test-Automation ·
+  Full paper: docs/paper.pdf · Evidence register: docs/evidence-manifest.md
+</div>
+
+</body>
+</html>
