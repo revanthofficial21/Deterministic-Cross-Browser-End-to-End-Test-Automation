@@ -25,6 +25,33 @@ export function accountFor(parallelIndex) {
 }
 
 export const test = base.extend({
+  // O4: one trace bundle per execution, recorded explicitly rather than relying on
+  // the runner's own trace lifecycle. The runner's trace is flushed when the context
+  // closes, which for an early failure produced a bundle containing only test.trace
+  // and none of the browser streams (no DOM snapshots, no network, no stacks).
+  // Starting and stopping tracing here guarantees the bundle is written even when
+  // the test fails in its first assertion.
+  _traceBundle: [
+    async ({ context }, use, testInfo) => {
+      const dir = process.env.PW_OUTPUT_DIR || 'results/artifacts';
+      fs.mkdirSync(dir, { recursive: true });
+      const file = path.join(dir, `trace-${testInfo.testId.slice(0, 8)}.zip`);
+      let started = false;
+      try {
+        await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
+        started = true;
+      } catch {}
+      await use();
+      if (started) {
+        try {
+          await context.tracing.stop({ path: file });
+          testInfo.attachments.push({ name: 'trace', path: file, contentType: 'application/zip' });
+        } catch {}
+      }
+    },
+    { auto: true },
+  ],
+
   // Worker-scoped: authenticate once per worker, reuse within the worker.
   workerStorageState: [
     async ({ browser }, use, testInfo) => {
